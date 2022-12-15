@@ -1,13 +1,32 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Rock Paper Scissors</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
 
-    <body>
-        <script src="main.js"></script>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script src="main.js" defer></script>
+    <h1 id="header-title">Play Rock, Paper, Scissors!</h1>
+    <div id="rps-list">
+        <button id="rps-rock" class="rps-button">Rock</button>
+        <button id="rps-paper" class="rps-button">Paper</button>
+        <button id="rps-scissors" class="rps-button">Scissors</button>
+    </div>
+    <div id="game-info">
+        <p>Rules: First to 5 wins!</p>
+        <p>Rock beats Scissors<br>
+            Scissors beat Paper<br>
+            Paper beats Rock
+        </p>
+        <p id="round-result"></p>
+        <p>Player Win Count:<span id="player-win-count">0</span></p>
+        <p>Computer Win Count:<span id="computer-win-count">0</span></p>
+        <p id="game-result"></p>
+    </div>
+</body>
+
 </html>

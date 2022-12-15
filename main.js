@@ -1,6 +1,16 @@
 // 
+
 let playerWins = 0;
 let compWins = 0;
+let playerWinCount = document.getElementById("player-win-count");
+let compWinCount = document.getElementById("comp-win-count");
+
+let body = document.body;
+let rockBtn = document.getElementById("rps-rock");
+let paperBtn = document.getElementById("rps-paper");
+let sciBtn = document.getElementById("rps-scissors");
+let roundResult = document.getElementById("round-result");
+let gameResult = document.getElementById("game-result");
 
 const compChoices = ["rock","paper","scissors"]
 
@@ -8,52 +18,57 @@ function getComputerChoice() {
     return compChoices[Math.floor(Math.random() * 3)];
 }
 
-// console.log(getComputerChoice());
+rockBtn.onclick = () => playRound("rock", getComputerChoice());
+paperBtn.onclick = () => playRound("paper", getComputerChoice());
+sciBtn.onclick = () => playRound("scissors", getComputerChoice());
 
-function getPlayerChoice() {
-    return prompt("Rock, Paper, or Scissors?").toLowerCase();
-}
-
-// console.log(getPlayerChoice());
-
-function playRound(playerSelection, compSelection) {
-    if (playerSelection === compSelection) {
-        console.log("Draw! Player Chose:", playerSelection, "and Computer Chose:", compSelection);
-        return 0;
+function playRound(playSel, compSel) {
+    if (playSel === compSel) {
+        updateResults(playSel, compSel, 0)
     }
-    else if ((playerSelection == "rock" && compSelection == "scissors") ||
-    (playerSelection == "paper" && compSelection == "rock") ||
-    (playerSelection == "scissors" && compSelection == "paper")) {
-        console.log("Winner! Player Chose:", playerSelection, "and Computer Chose:", compSelection);
-        return 1;
-    }
-    else if ((playerSelection == "rock" && compSelection == "paper") ||
-    (playerSelection == "paper" && compSelection == "scissors") ||
-    (playerSelection == "scissors" && compSelection == "rock")) {
-        console.log("Loser! Player Chose:", playerSelection, "and Computer Chose:", compSelection);
-        return 2;
-    }
-}
-
-for (let i = 0; i < 5; i++) {
-    let result = playRound(getPlayerChoice(), getComputerChoice());
-    if (result === 1) {
+    else if ((playSel == "rock" && compSel == "scissors") ||
+    (playSel == "paper" && compSel == "rock") ||
+    (playSel == "scissors" && compSel == "paper")) {
         playerWins++;
+        updateResults(playSel, compSel, 1)
+    }
+    else if ((playSel == "rock" && compSel == "paper") ||
+    (playSel == "paper" && compSel == "scissors") ||
+    (playSel == "scissors" && compSel == "rock")) {
+        compWins++
+        updateResults(playSel, compSel, 2)
+    }
+}
+
+function updateResults(playSel, compSel, result) {
+    if (result === 0) {
+        roundResult.textContent = `Draw! Player Chose: ${playSel}, and Computer Chose: ${compSel}`
+    }
+    else if (result === 1) {
+        roundResult.textContent = `Winner! Player Chose: ${playSel}, and Computer Chose: ${compSel}`
+        playerWinCount.textContent = playerWins;
     }
     else if (result === 2) {
-        compWins++;
+        roundResult.textContent = `Loser! Player Chose: ${playSel}, and Computer Chose: ${compSel}`
+        compWinCount.textContent = compWins;
     }
-}
 
-if (playerWins > compWins) {
-    console.log("Player Wins!");
-}
-else if (compWins > playerWins) {
-    console.log("Computer Wins!");
-}
-else if (playerWins === compWins) {
-    console.log("It's a Draw!");
-}
-else {
-    console.log("Result Error, please check code!");
+    if (playerWins === 5 || compWins === 5) {
+        if (playerWins === 5) {
+            gameResult.textContent = "Player Wins! Congratulations!"
+        }
+        else {
+            gameResult.textContent = "Computer Wins! Maybe Next Time!"
+        }
+
+        rockBtn.disabled = true;
+        paperBtn.disabled = true;
+        sciBtn.disabled = true;
+
+        let restartBtn = document.createElement("button");
+        restartBtn.classList.add("rps-button")
+        restartBtn.textContent = "Try Again?"
+        restartBtn.onclick = () => location.reload();
+        body.append(restartBtn);
+    }
 }

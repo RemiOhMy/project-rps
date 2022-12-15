@@ -23,11 +23,29 @@ body {
     align-items: center;
     background-color: white;
     color: red;
+    transition: all 0.25s;
     font-size: 1rem;
     font-weight: 300;
     border: 0.2rem solid red;
+    border-radius: 0.5rem;
     padding: 0.5rem;
-    margin: 1rem 0.5rem;
+    margin: 1rem;
     height: 8rem;
     width: 8rem;
+}
+
+.rps-button:hover {
+    background-color: red;
+    color: white;
+    transform: scale(1.1);
+}
+
+.rps-button:active {
+    background-color: red;
+    color: white;
+    transform: translateY(5px);
+}
+
+#game-info {
+    width: 500px;
 }
